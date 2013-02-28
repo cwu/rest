@@ -1,11 +1,4 @@
 /*******************************************************************************
-Slate Theme for GitHub Pages
-by Jason Costello, @jsncostello
-*******************************************************************************/
-
-@import url(pygment_trac.css);
-
-/*******************************************************************************
 MeyerWeb Reset
 *******************************************************************************/
 
@@ -289,10 +282,15 @@ Full-Width Styles
   padding: 50px 10px 30px 10px;
 }
 
+#home {
+  margin-top: -50px;
+}
+
 #nav_wrap.sticky {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9001;
 }
 
 #nav_wrap {
@@ -314,7 +312,7 @@ Full-Width Styles
 #nav_wrap .inner ul li {
   display: inline-block;
   height: 30px;
-  padding: 10px 20px;
+  padding: 10px 5px;
   margin: 0 20px;
   line-height: 30px;
 }
@@ -365,4 +363,8 @@ article img {
 
 #footer_wrap {
   background: #212121;
+}
+
+article {
+  padding-top: 50px;
 }
