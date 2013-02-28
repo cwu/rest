@@ -20,53 +20,285 @@
         <h2 id="project_tagline">A better way to sleep</h2>
       </header>
     </div>
+    <div id="nav_wrap" class="outer">
+      <nav class="inner">
+        <ul>
+          <li><a href="#problem">Problem</a></li>
+          <li><a href="#technology">Technology</a></li>
+          <li><a href="#team">Team</a></li>
+        </ul>
+      </nav>
+    </div>
 
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Problem to Solve</h3>
-        <p>
-          Many people today do not have a healthy nights rest. Bad sleep patterns
-          negatively affect a person's daily function, productivity and health.
+        <article>
+          <h2>Welcome to Rest - Sleep Smart</h2>
+          <div class="center">
+          <iframe width="560" height="315" src="http://www.youtube.com/embed/IthmaQtofRA" frameborder="0" allowfullscreen></iframe>
+          </div>
 
-          <blockquote>
-            43% wake up greater than once nightly
-            - Central Michigan University
-          </blockquote>
 
-          <blockquote>
-            [bad sleep] leads to 47% higher risk of heart attack
-            - National Post
-          </blockquote>
+          <p>
+            Rest is a sleep monitoring system capable of measuring a user's sleep
+            activity while not interfering with their natural sleeping habit. Rest
+            automatically records a user's sleep activity and then uploads the
+            data to a web server for analytics processing.
+          </p>
 
-          However there is no easy way to get insight into our sleeping behaviour
-          which both easy to use and non-intrusive.
-        </p>
+          <p>
+            Our technology utilizes a combination of sensors to scientifically
+            determine a user’s sleeping cycle, through actigraphy, as well as
+            their sleeping posture. Using the sleep data, the system provides
+            visual metrics such as sleep efficiency and posture to the user
+            through a web interface.
+          </p>
 
-        <h3>What is Rest?</h3>
-        <p>
-          Rest is is an affordable device that can accurately measure one's sleep
-          behaviour without interfering with their natural sleeping habits.
-        </p>
+          <p>
+            Rest aims to provide accurate sleep metrics to individuals that
+            suffer from sleep disorders such as sleep apnea and insomnia, or just
+            want to optimize their daily performance, in the comfort of their own
+            home.
+          </p>
+        </article>
 
-        <h3>How does it Work?</h3>
-        <p>
-          Rest uses actigraphy to detect the sleeping phases. It is 94% accurate with
-          traditional methods such as polysomnography.
-        </p>
+        <article id="problem">
+          <h2>Background</h2>
+          <p>
+            As technology becomes more accessible, consumers are able to gain more
+            insights on their daily performance and habits, and use the feedback
+            to improve overall quality of life. However, one major component of
+            our daily routine has not been sufficiently explored, and that is sleep.
+            Although poor rest quality and health symptoms such as diabetes have been
+            publicly correlated [1], sleep information such as efficiency and posture
+            are still not easily accessible to average consumers due to the cost and
+            inconvenience of evaluation methods.
+          </p>
 
-        <h3>Team</h3>
-        <p>
-          The team comprises of four mechatronics students: Ian, Jordan, Ali and Chris.
-        </p>
+          <h2>Needs Assesment</h2>
+          <p>
+            People are often not getting enough high quality sleep that they need,
+            and do not have the accurate and accessible insight required to improve
+            their sleeping habits. For example, diagnosis for insomnia is difficult
+            due to data ambiguity, and would be a lot more defensible with
+            quantifiable criteria and results. [1] A non-intrusive and cost-effective
+            method is needed to inform people of their behaviour, and provide
+            suggestions to benefit their overall quality of life.
+          </p>
+
+          <h2>Objective</h2>
+          <h3>Problem Formulation</h3>
+          <p>
+            Design a non-intrusive and cost-effective system to monitor and
+            visualize sleep history for the purpose of identifying sleeping
+            patterns, and offering suggestions for improvement.
+          </p>
+          <h3>Goal</h3>
+          <p>
+            To design and manufacture an affordable device capable of accurately
+            measuring and visualizing a person’s sleep behavior while not
+            interfering with their natural sleeping habit.
+          </p>
+          <h3>Objectives</h3>
+          <ul>
+            <li>Does not interfere with user’s natural sleeping habit</li>
+            <li>Record movement data and determine when the user is sleeping.</li>
+            <li>Identify sleep stages from recorded data.</li>
+            <li>Waterproof, dustproof, and shockproof for 1 year.</li>
+          </ul>
+        </article>
+
+        <article id="technology">
+          <h2>Technology</h2>
+          <p>
+            The system uses a fusion of accelerometers and force sensing resistors
+            to capture movement data as well as a user profile to detect posture.
+            These sensors can be embedded into or placed under the bed sheets.
+            This approach takes advantage of the different types of sensors to
+            accurately capture relevant data to the sleep analysis. It can also
+            be install non-intrusively under the bed sheet, with little hassle to
+            install.
+          </p>
+          <p>
+            The software is used to record the data, implement the analysis
+            algorithm and present it to the user. It pipelines the data along
+            different platforms from the sensor capture to the presentation to
+            the user.
+          </p>
+
+          <h3>Sensor Matrix</h3>
+          <div class="center">
+            <img src="images/sensor_matrix.png" alt="Sensor Matrix" />
+          </div>
+          <p>
+            For a standard single mattress, the sensor matrix consists of 30 force
+            sensing resistors in a 6x5 grid. The force sensing resistors measure
+            the user's weight distribution and the system can then determine the
+            user's sleeping position.
+          </p>
+
+          <h3>Accelerometer</h3>
+          <div class="center">
+            <img src="images/accelerometer.jpg" alt="accelerometer" />
+          </div>
+
+          <p>
+            The system has two accelerometers, placed on opposite corners of the
+            bed, which measure the user's sleep movement for further analysis.
+          </p>
+
+          <h3>Microcontroller</h3>
+          <div class="center">
+            <img src="images/arduino.jpg" alt="Arduino Uno" />
+          </div>
+
+          <p>
+            The microcontroller platform is the Arduino Uno. The Aruino is
+            responsible for integrating the sensors to the software of the
+            system.
+          </p>
+
+          <h3>Software</h3>
+          <div class="center">
+            <img src="images/visualization.png" alt="Arduino Uno" />
+          </div>
+
+          <p>
+            The software can be separated into five main components:
+          </p>
+
+          <ol>
+            <li>Data capture</li>
+            <li>Data transfer</li>
+            <li>Data storage</li>
+            <li>Data analysis</li>
+            <li>Data presentation</li>
+          </ol>
+
+
+          <h3>Data Capture</h3>
+
+          <p>
+            The microcontroller interfaces with the accelerometers through I2C and
+            the force sensing resistors through analog inputs.
+          </p>
+
+          <h3>Data Transfer</h3>
+
+          <p>
+            The data transfer occurs over the Internet using a Wi-Fi shield
+            connected to the microcontroller.
+          </p>
+
+          <h3>Data Storage</h3>
+
+          <p>
+            As the data is transferred to the server, the server stores the data.
+          </p>
+
+          <h3>Data Analysis</h3>
+
+          <p>
+            The sleep movement data is analyzed using actigraphy, and correlated to
+            different sleeping cycles. From the user's weight distribution data is
+            analyzed, the system can determine the user's sleeping position.
+          </p>
+
+          <h3>Data Presenation</h3>
+
+          <p>
+            The sleep data is visually presented to the user in the form of various graphs.
+          </p>
+        </article>
+
+        <article id="team">
+          <h2>Team</h2>
+          <h3>Ali Jangda</h3>
+          <p>
+            Ali Jangda spent his two most recent work terms at Apple Inc. in a
+            hardware engineering role, and the two prior at ON semiconductor. From
+            these high demand professional environment, he built an expertise in
+            hardware and embedded systems that
+          </p>
+
+          <p>
+            Ali Jangda is the lead hardware developer, and is in charge of
+            designing and implementing the sensory platform. He processes the need
+            statements into specifications for components, and researches the
+            combination of components and circuitry that is needed to achieve the
+            optimal performance and cost-effectiveness.
+          </p>
+          <h3>Christopher Wu</h3>
+
+          <p>
+            Christopher Wu is a dedicated software guru that has a broad array of work
+            experience at innovative companies across North America, such as
+            Facebook and Tagged. His extensive history of front-end application
+            development and back-end server programming will be critical to the
+            cloud computing and data distribution aspects of this project.
+          </p>
+
+          <p>
+            Christopher Wu is the lead software developer, and he is responsible for
+            creating the backend infrastructure to support the system operation as
+            well as data analysis and user interface. From the chosen hardware
+            platform, Chris collects input measurements and applies algorithms to
+            correlate them to sleep information, and then visually present them
+            to user for feedback.
+          </p>
+
+          <h3>Ian Tao</h3>
+          <p>
+            Ian Tao has been a key contributor at six different technology ventures
+            in Canada over the last five years. His background in the product
+            development and commercialization of robotic systems and medical
+            devices makes him the ideal system integration developer and market
+            researcher. Ian also has industry connections at the Sunnybrook Research
+            Centre, which would be beneficial to provide resource for data
+            validation and testing in a clinical setting.
+          </p>
+
+          <p>
+            Ian Tao is the intellectual property and commercialization developer,
+            and his duties include researching existing solutions and ensuring
+            the product's patentability. He also studies the market gap and
+            technological availability to tailor the system to the most suitable
+            audience. It is also his responsibility to reinforce the requirement
+            and specifications throughout the designing process to stay within
+            the project scope.
+          </p>
+
+          <h3>Jordan Chan</h3>
+          <p>
+            Jordan Chan has extensive industry experience as electronic hardware
+            designer in the consumer section, and also interned as a patent
+            analyst at Blakes, Cassels and Graydon LLP. His deep understanding of
+            intellectual property management in addition to his technical skills
+            is a tremendous asset to creating a new product. Jordan also developed
+            the ability to research effectively from the patent firm, which makes
+            him a suitable candidate to ensure the product's functional and
+            commercial feasibility.
+          </p>
+
+          <p>
+            Jordan Chan is the scientific researcher, and focuses on deriving and
+            proving the correlation between movement data and sleep stages using
+            actigraphy techniques. He provides the fundamental scientific knowledge
+            by collecting and comparing results from previously conducted studies
+            and peer-reviewed journal articles. Also, he devises test plans to
+            validate system performance, as well as guide the development process
+            to produce more relevant results.
+          </p>
+        </article>
+
       </section>
+
     </div>
 
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Rest maintained by <a href="https://github.com/cwu">cwu</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
 
