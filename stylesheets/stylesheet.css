@@ -368,3 +368,18 @@ article img {
 article {
   padding-top: 50px;
 }
+
+.footnotes {
+  border-top: 1px #999999 solid;
+  padding: 10px 30px 0 30px;
+  font-size: 0.8em;
+  font-style: italic;
+}
+
+.footnotes ol {
+  list-style-position: outside;
+  padding: 0;
+}
+.footnotes li {
+  padding: 0;
+}
