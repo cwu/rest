@@ -4,7 +4,7 @@ from flask import Blueprint, Response, abort
 
 from functools import partial
 
-from settings import STATIC_PATH
+from settings import ASSETS_PATH
 
 assets_blueprint = Blueprint('assets', __name__)
 
@@ -45,7 +45,7 @@ def route_asset(dir_path, extension, compiler, name):
 
 @assets_blueprint.route('/stylesheets/<name>.css')
 def stylesheets(name):
-    dir_path = os.path.join(STATIC_PATH, 'stylesheets')
+    dir_path = os.path.join(ASSETS_PATH, 'stylesheets')
     sass   = partial(compile_asset, 'sass', ['--trace', '--scss', '--stdin', '-I', dir_path, '--compass'])
     return route_asset(
         dir_path,
@@ -58,7 +58,7 @@ def stylesheets(name):
 def javascripts(name):
     coffee = partial(compile_asset, 'coffee', ['-c', '-s'])
     return route_asset(
-        os.path.join(STATIC_PATH, 'javascripts'),
+        os.path.join(ASSETS_PATH, 'javascripts'),
         'coffee',
         coffee,
         name,
