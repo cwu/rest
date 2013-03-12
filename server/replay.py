@@ -7,9 +7,5 @@ def csv_data(filename):
 
   i = 0
   while True:
-    yield {
-      'x' : data[i][0],
-      'y' : data[i][1],
-      'z' : data[i][2],
-    }
+    yield data[i]
     i = (i + 1) % len(data)

@@ -5,9 +5,23 @@
     <script type="text/javascript" src="/static/js/underscore.min.js"></script>
     <script type="text/javascript" src="/static/js/highcharts.js"></script>
     <script type="text/javascript" src="/static/js/smoothie.js"></script>
+    <script type="text/javascript" src="/static/js/heatmap.js"></script>
+    <script type="text/javascript" src="/static/js/lib.js"></script>
     <script type="text/javascript" src="/javascripts/application.js"></script>
   </head>
   <body>
-    <canvas id="accel-1"></canvas>
+    <div id="heatmap">
+      <!--  <canvas id="test" width="200" height="200"></canvas> -->
+    </div>
+    <div id="accelerometers">
+      <div>
+        <h2>Accelerometer 1</h2>
+        <canvas id="accel-0"></canvas>
+      </div>
+      <div>
+        <h2>Accelerometer 2</h2>
+        <canvas id="accel-1"></canvas>
+      </div>
+    </div>
   </body>
 </html>

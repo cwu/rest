@@ -1,2 +1,16 @@
-@import "compass/reset";
 @import "compass";
+
+#heatmap {
+  width: 740px;
+  height: 340px;
+  border: 1px solid red;
+  position: relative;
+  display: inline-block;
+}
+
+#accelerometers {
+  width: 500px;
+  height: 500px;
+  border: 1px solid blue;
+  display: inline-block;
+}
