@@ -40,14 +40,20 @@ def accel(accel_id):
   t = int(request.args.get('t', 1000))
   samples = max(t / settings.ACCEL_UPDATE, 1)
   raw = (json.loads(s)['data'] for s in r.lrange('accel:%s' % accel_id, 0, samples-1))
-  mags = (int(math.sqrt(x*x+y*y+z*z)) for x,y,z in raw)
-  return jsonify({'data' : max(mags)})
+  mags = [int(math.sqrt(x*x+y*y+z*z)) for x,y,z in raw]
+  print mags
+  mag = mags[0]
+  for m in mags[1:]:
+    if abs(m) > abs(mag):
+      mag = m
+  return jsonify({'data' : mag})
 
 @app.route('/fsr')
 def fsr():
   t = int(request.args.get('t', 1000))
   samples = max(t / settings.FSR_UPDATE, 1)
   raw_datas = [json.loads(s)['data'] for s in r.lrange('fsr', 0, samples-1)]
+  print raw_datas[0]
   max_x = len(raw_datas[0][0])
   max_y = len(raw_datas[0])
   raw_data = [[0] * max_x] * max_y
@@ -59,9 +65,9 @@ def fsr():
     {
       'x'     : float(x + 0.5) / max_x,
       'y'     : float(y + 0.5) / max_y,
-      'value' : min(max(value, 0), 1023),
+      'value' : value
     }
-    for y, row in enumerate(raw_data)
+    for y, row in enumerate(raw_datas[0])
     for x, value in enumerate(row)
   ]
   return jsonify({ 'data' : data })

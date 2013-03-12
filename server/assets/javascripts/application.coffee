@@ -1,13 +1,13 @@
 $ ->
-  ACCEL_UPDATE = 1000
-  FSR_UPDATE = 1000
+  ACCEL_UPDATE = 100
+  FSR_UPDATE = 500
   accel_url = $('#accel-url').attr('value')
   fsr_url = $('#fsr-url').attr('value')
   accelChart = [null, null]
   accelChart =
     chart : new SmoothieChart(
-      maxValue : Math.floor(2048 * Math.sqrt(3) - 950)
-      minValue : Math.floor(-2048 * Math.sqrt(3) + 950)
+      maxValue : 10  #Math.floor(2048 * Math.sqrt(3) - 950)
+      minValue : -10 #0 # Math.floor(-2048 * Math.sqrt(3) + 950)
     )
     accel     : [new TimeSeries(), new TimeSeries()]
   accelChart.chart.streamTo(document.getElementById("accel"), ACCEL_UPDATE)
@@ -17,7 +17,7 @@ $ ->
     _.each [0, 1], (id) ->
       $.ajax("#{accel_url}/#{id}?t=#{ACCEL_UPDATE}").done (data) ->
         now = new Date().getTime()
-        accelChart.accel[id].append(now, data.data)
+        accelChart.accel[id].append(now, (data.data - 950) / 50)
   , ACCEL_UPDATE)
 
 
@@ -41,6 +41,6 @@ $ ->
           y     : fsr.x * height
           count : fsr.value
       heatmap.store.setDataSet data
-  , 100)
+  , FSR_UPDATE)
   #$.ajax('/fsr').done (response) ->
   #  heatmapify(response.data)
