@@ -1,30 +1,22 @@
 $ ->
-  accelCharts = [null, null]
-  createAccelChart = (id) ->
-    accelCharts[id] =
-      chart : new SmoothieChart(
-        maxValue : 2048
-        minValue : -2058
-      )
-      x     : new TimeSeries()
-      y     : new TimeSeries()
-      z     : new TimeSeries()
-    accelCharts[id].chart.streamTo(document.getElementById("accel-#{id}"), 1000)
-    accelCharts[id].chart.addTimeSeries(accelCharts[id].x,
-      { strokeStyle:'rgb(255, 0, 0)', lineWidth:3 })
-    accelCharts[id].chart.addTimeSeries(accelCharts[id].y,
-      { strokeStyle:'rgb(0, 255, 0)', lineWidth:3 })
-    accelCharts[id].chart.addTimeSeries(accelCharts[id].z,
-      { strokeStyle:'rgb(255, 0, 255)', lineWidth:3 })
-    setInterval(()->
-      $.ajax("/accel/#{id}").done (data) ->
+  accelChart = [null, null]
+  accelChart =
+    chart : new SmoothieChart(
+      maxValue : Math.floor(2048 * Math.sqrt(3) - 950)
+      minValue : Math.floor(-2048 * Math.sqrt(3) + 950)
+    )
+    accel     : [new TimeSeries(), new TimeSeries()]
+  accelChart.chart.streamTo(document.getElementById("accel"), 500)
+  accelChart.chart.addTimeSeries(accelChart.accel[0], { strokeStyle:'rgb(255, 0, 0)', lineWidth:3 })
+  accelChart.chart.addTimeSeries(accelChart.accel[1], { strokeStyle:'rgb(255, 0, 255)', lineWidth:3 })
+  setInterval(()->
+    _.each [0, 1], (id) ->
+      $.ajax("/fake/accel/#{id}").done (data) ->
         now = new Date().getTime()
-        accelCharts[id].x.append(now, data.x)
-        accelCharts[id].y.append(now, data.z)
-        accelCharts[id].z.append(now, data.y)
-    , 100)
+        value = Math.sqrt(data.x * data.x + data.y * data.y + data.z * data.z) - 950
+        accelChart.accel[id].append(now, value)
+  , 500)
 
-  #_.each [0, 1], createAccelChart
 
   heatmap = h337.create
     element  : 'heatmap'
@@ -35,7 +27,7 @@ $ ->
   setInterval(()->
     width = $('#heatmap').width()
     height = $('#heatmap').height()
-    $.ajax('/fsr').done (response) ->
+    $.ajax('/fake/fsr').done (response) ->
       data =
         max : 1023
         data : []

@@ -21,7 +21,7 @@ def index():
 def demo():
   return render_template('demo.html')
 
-@app.route('/accel/<accel_id>')
+@app.route('/fake/accel/<accel_id>')
 def accel(accel_id):
   accel_id = int(accel_id)
   measurement = accelerometer[accel_id].next()
@@ -31,8 +31,8 @@ def accel(accel_id):
     'z' : measurement[2],
   })
 
-@app.route('/fsr')
-def fsr():
+@app.route('/fake/fsr')
+def fake_fsr():
   raw_data = [ fsr_data.next() for _ in xrange(6) ]
   print raw_data
   max_x = len(raw_data[0])
