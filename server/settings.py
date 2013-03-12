@@ -7,3 +7,6 @@ ACCEL_CSV_FILES = [
   os.path.join(PROJECT_DIR, 'data', 'accel_2.csv'),
 ]
 FSR_CSV_FILE = os.path.join(PROJECT_DIR, 'data', 'fsrout.csv')
+
+ACCEL_UPDATE = 250
+FSR_UPDATE = 250
