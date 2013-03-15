@@ -1,6 +1,6 @@
 $ ->
   ACCEL_UPDATE = 100
-  FSR_UPDATE = 500
+  FSR_UPDATE = 200
   accel_url = $('#accel-url').attr('value')
   fsr_url = $('#fsr-url').attr('value')
   accelChart = [null, null]

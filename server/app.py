@@ -67,7 +67,7 @@ def fsr():
     {
       'x'     : float(x + 0.5) / max_x,
       'y'     : float(y + 0.5) / max_y,
-      'value' : int(float(value - min_) / (max_ - min_) * 1023)
+      'value' : value
     }
     for y, row in enumerate(raw_datas[0])
     for x, value in enumerate(row)
