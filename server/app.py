@@ -53,19 +53,15 @@ def fsr():
   t = int(request.args.get('t', 1000))
   samples = max(t / settings.FSR_UPDATE, 1)
   raw_datas = [json.loads(s)['data'] for s in r.lrange('fsr', 0, samples-1)]
-  print raw_datas[0]
   max_x = len(raw_datas[0][0])
   max_y = len(raw_datas[0])
-  raw_data = [[0] * max_x] * max_y
-  for rd in raw_datas:
-    for row in xrange(max_y):
-      for c in xrange(max_x):
-        raw_data[row][c] += rd[row][c]
+  min_ = min((min(row) for row in raw_datas[0]))
+  max_ = max((max(row) for row in raw_datas[0]))
   data = [
     {
       'x'     : float(x + 0.5) / max_x,
       'y'     : float(y + 0.5) / max_y,
-      'value' : value
+      'value' : int(float(value - min_) / (max_ - min_) * 1023)
     }
     for y, row in enumerate(raw_datas[0])
     for x, value in enumerate(row)
