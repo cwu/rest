@@ -47,3 +47,19 @@ $ ->
       #heatmap.store.setDataSet data
       heatmapify(_.zip.apply(null, matrix))
   , FSR_UPDATE)
+
+  startTime = null
+  $('#start-stop').on 'click', (evt) ->
+    evt.preventDefault()
+    mode = $('#start-stop').text()
+    if mode == 'start'
+      startTime = new Date().getTime()
+      $('#start-stop').text('stop')
+    else
+      endTime = new Date().getTime()
+      $('#start-stop').text('start')
+      $.ajax('/record_sleep', {
+        method : 'POST'
+        data : { start : startTime, end : endTime }
+      })
+    false

@@ -23,6 +23,12 @@ r = redis.Redis()
 def index():
   return redirect('/demo')
 
+@app.route('/record_sleep', methods=["POST"])
+def record_sleep():
+  t = { 'start' : float(request.form['start'])/1000, 'end' : float(request.form['end'])/1000 }
+  r.lpush('sleep-times', json.dumps(t))
+  return "OK"
+
 @app.route('/demo')
 def demo():
   return render_template('demo.html',
