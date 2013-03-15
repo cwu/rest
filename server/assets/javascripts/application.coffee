@@ -45,6 +45,7 @@ $ ->
         matrix[parseInt(count / 5, 10)].push(fsr.value)
         count++
       #heatmap.store.setDataSet data
+      $('#position').text(response.position)
       heatmapify(_.zip.apply(null, matrix))
   , FSR_UPDATE)
 

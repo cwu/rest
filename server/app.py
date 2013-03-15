@@ -7,6 +7,14 @@ import settings
 import replay
 import json
 from assets.assets import assets_blueprint
+import cPickle as pickle
+
+POSITIONS = (
+  'log',
+  'starfish',
+  'fetal',
+  'fetalalt',
+)
 
 app = Flask(__name__)
 app.secret_key = 'SECRET'
@@ -16,6 +24,8 @@ app.register_blueprint(assets_blueprint)
 
 accelerometer = [ replay.csv_data(filename) for filename in settings.ACCEL_CSV_FILES ]
 fsr_data = replay.csv_data(settings.FSR_CSV_FILE)
+with open(settings.NN_FILE, 'r') as f:
+  net = pickle.load(f)
 
 r = redis.Redis()
 
@@ -72,7 +82,8 @@ def fsr():
     for y, row in enumerate(raw_datas[0])
     for x, value in enumerate(row)
   ]
-  return jsonify({ 'data' : data })
+  position = POSITIONS[net.activate([v for row in raw_datas[0] for v in row]).argmax()]
+  return jsonify({ 'data' : data, 'position' : position})
 
 @app.route('/fake_accel/<accel_id>')
 def fake_accel(accel_id):
@@ -96,7 +107,8 @@ def fake_fsr():
     for y, row in enumerate(raw_data)
     for x, value in enumerate(row)
   ]
-  return jsonify({ 'data' : data })
+  position = POSITIONS[net.activate([v for row in raw_data for v in row]).argmax()]
+  return jsonify({ 'data' : data, 'position' : position})
 
 if __name__ == '__main__':
   app.run(debug=True)
