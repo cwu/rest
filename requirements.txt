@@ -1,0 +1,4 @@
+PySerial==2.6
+numpy==1.7.0
+scipy==0.11.0
+PyBrain==0.3.0
