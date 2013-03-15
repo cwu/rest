@@ -21,11 +21,11 @@ $ ->
   #, ACCEL_UPDATE)
 
 
-  heatmap = h337.create
-    element  : 'heatmap'
-    radius   : 50
-    opacity  : 90
-    visible : true
+  #heatmap = h337.create
+  #  element  : 'heatmap'
+  #  radius   : 50
+  #  opacity  : 90
+  #  visible : true
 
   setInterval(()->
     width = $('#heatmap').width()
@@ -44,6 +44,6 @@ $ ->
           count : fsr.value
         matrix[parseInt(count / 5, 10)].push(fsr.value)
         count++
-      heatmap.store.setDataSet data
+      #heatmap.store.setDataSet data
       heatmapify(_.zip.apply(null, matrix))
   , FSR_UPDATE)

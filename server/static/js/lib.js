@@ -2,10 +2,10 @@ var bicubic = (function(){
   return function(x, y, values){
     var i0, i1, i2, i3;
 
-    i0 = TERP(x, values[0][0], values[1][0], values[2][0], values[3][0]);
-    i1 = TERP(x, values[0][1], values[1][1], values[2][1], values[3][1]);
-    i2 = TERP(x, values[0][2], values[1][2], values[2][2], values[3][2]);
-    i3 = TERP(x, values[0][3], values[1][3], values[2][3], values[3][3]);
+    i0 = TERP(x, values[0][0], values[0][1], values[0][2], values[0][3]);
+    i1 = TERP(x, values[1][0], values[1][1], values[1][2], values[1][3]);
+    i2 = TERP(x, values[2][0], values[2][1], values[2][2], values[2][3]);
+    i3 = TERP(x, values[3][0], values[3][1], values[3][2], values[3][3]);
     return TERP(y, i0, i1, i2, i3);
   };
   function TERP(t, a, b, c, d){
@@ -59,19 +59,12 @@ function heatmapify(img) {
     for (var x = 0; x < width; x++) {
       var i = parseInt(y / y_unit, 10)+1;
       var j = parseInt(x / x_unit, 10)+1;
-      if (i+2 >= img.length) {
-        console.log("i " + (i + 2));
-      }
-      if (j+2 >= img[i].length) {
-        console.log("j " + (j + 2));
-      }
       var values = [
         [ img[i-1][j-1] , img[i-1][j] , img[i-1][j+1] , img[i-1][j+2] ] ,
         [ img[i][j-1]   , img[i][j]   , img[i][j+1]   , img[i][j+2] ]   ,
         [ img[i+1][j-1] , img[i+1][j] , img[i+1][j+1] , img[i+1][j+2] ] ,
         [ img[i+2][j-1] , img[i+2][j] , img[i+2][j+1] , img[i+2][j+2] ]
       ];
-      values = _.zip.apply(null, values);
       var dx = (x / x_unit) % 1;
       var dy = (y / y_unit) % 1;
       var interpolated = bicubic(dx, dy, values);
