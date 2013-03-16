@@ -10,6 +10,7 @@ from assets.assets import assets_blueprint
 import cPickle as pickle
 
 POSITIONS = (
+  'empty',
   'log',
   'starfish',
   'fetal',
