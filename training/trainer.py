@@ -37,14 +37,17 @@ def main():
   for name, positions in data.iteritems():
     for position, state in positions.iteritems():
       ds.addSample(state, [POSITIONS.index(position)])
+  testing_ds, training_ds = ds.splitWithProportion( 0.25 )
+  testing_ds._convertToOneOfMany()
+  training_ds._convertToOneOfMany()
   ds._convertToOneOfMany()
 
-  hidden = 60
-  net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=TanhLayer)
+  hidden = 100
+  net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=SoftmaxLayer)
 
-  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.01)
+  trainer = BackpropTrainer(net, training_ds, verbose=True, learningrate=0.01, momentum=0.1)
 
-  for _ in xrange(100):
+  for _ in xrange(1000):
     trainer.train()
 
   wrong = 0
