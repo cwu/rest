@@ -40,17 +40,17 @@ function heatmapify(img) {
 
   // buffer the end elements
   for (var y = 0; y < img.length; y++) {
-    img[y] = [img[y][0]].concat(img[y]).concat([
+    img[y] = [img[y][0], img[y][0]].concat(img[y]).concat([
         img[y][img[y].length - 1],
         img[y][img[y].length - 1]
     ]);
   }
-  img = [img[0]].concat(img).concat([img[img.length - 1], img[img.length-1]]);
+  img = [img[0], img[0]].concat(img).concat([img[img.length - 1], img[img.length-1]]);
 
   var width = $(canvas).width();
   var height = $(canvas).height();
-  var x_unit = width / small_width;
-  var y_unit = height / small_height;
+  var x_unit = width / (small_width+1);
+  var y_unit = height / (small_height+1);
 
   var image = c.getImageData(0,0,width,height);
   var min_norm = 10000;
