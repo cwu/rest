@@ -19,6 +19,9 @@ POSITIONS = (
   'fetalalt',
 )
 
+HIDDEN_NEURONS = 100
+ITERATIONS = 5000
+
 def data_set():
   data_files = glob.glob(os.path.join(TRAINING_DIR, 'data', '*'))
   data = defaultdict(dict)
@@ -42,13 +45,12 @@ def main():
   training_ds._convertToOneOfMany()
   ds._convertToOneOfMany()
 
-  hidden = 100
+  hidden = HIDDEN_NEURONS
   net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=SoftmaxLayer)
 
   trainer = BackpropTrainer(net, training_ds, verbose=True, learningrate=0.01, momentum=0.1)
 
-  for _ in xrange(1000):
-    trainer.train()
+  trainer.trainEpochs(ITERATIONS)
 
   wrong = 0
   for name, positions in data.iteritems():
