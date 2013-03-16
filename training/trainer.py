@@ -39,12 +39,12 @@ def main():
       ds.addSample(state, [POSITIONS.index(position)])
   ds._convertToOneOfMany()
 
-  hidden = 100
-  net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=SoftmaxLayer)
+  hidden = 60
+  net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=TanhLayer)
 
-  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.1)
+  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.01)
 
-  for _ in xrange(2000):
+  for _ in xrange(100):
     trainer.train()
 
   wrong = 0
