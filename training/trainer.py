@@ -11,6 +11,7 @@ import cPickle as pickle
 TRAINING_DIR = os.path.dirname(os.path.realpath(__file__))
 
 POSITIONS = (
+  'empty',
   'log',
   'starfish',
   'fetal',
@@ -37,10 +38,10 @@ def main():
       ds.addSample(state, [POSITIONS.index(position)])
   ds._convertToOneOfMany()
 
-  hidden = 30
+  hidden = 100
   net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=SoftmaxLayer)
 
-  trainer = BackpropTrainer(net, ds, verbose=True)
+  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.2)
 
   for _ in xrange(2000):
     trainer.train()
@@ -54,8 +55,10 @@ def main():
         print "%10s %10s %10s" % (name, position, guess)
   print 'wrong: ', wrong, '/', len(data) * 4
 
-  with open('network-wrong-%02d-hidden-%d.pickle' % (wrong, hidden), 'w') as f:
+  out_name = 'network-wrong-%02d-hidden-%d.pickle' % (wrong, hidden)
+  with open(out_name, 'w') as f:
     pickle.dump(net, f)
+  print "saved to '%s'" % out_name
 
 if __name__ == '__main__':
   main()

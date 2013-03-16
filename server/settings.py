@@ -7,7 +7,7 @@ ACCEL_CSV_FILES = [
   os.path.join(PROJECT_DIR, 'data', 'accel_2.csv'),
 ]
 FSR_CSV_FILE = os.path.join(PROJECT_DIR, 'data', 'fsrout.csv')
-NN_FILE = os.path.join(PROJECT_DIR, 'network-wrong-0-hidden-100.pickle')
+NN_FILE = os.path.join(PROJECT_DIR, '..', 'training', 'network-good.pickle')
 
 ACCEL_UPDATE = 250
 FSR_UPDATE = 250
