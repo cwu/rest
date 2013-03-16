@@ -6,7 +6,9 @@ from pybrain.datasets import ClassificationDataSet
 from pybrain.structure import SoftmaxLayer, TanhLayer, SigmoidLayer, LinearLayer
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.shortcuts import buildNetwork
+import sys
 import cPickle as pickle
+import subprocess
 
 TRAINING_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -43,7 +45,7 @@ def main():
 
   trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.2)
 
-  for _ in xrange(2000):
+  for _ in xrange(200):
     trainer.train()
 
   wrong = 0
@@ -59,6 +61,17 @@ def main():
   with open(out_name, 'w') as f:
     pickle.dump(net, f)
   print "saved to '%s'" % out_name
+
+  print "Do you want to use this? (y/n): ",
+  answer = sys.stdin.readline().strip()
+  while answer not in ('y', 'n'):
+    print "Enter (y/n): ",
+    answer = sys.readline().strip()
+
+  if answer == 'y':
+    subprocess.call(['rm', 'network-good.pickle'])
+    subprocess.call(['ln', '-s', out_name, 'network-good.pickle'])
+    subprocess.call(['touch', os.path.join('..', 'server', 'app.py')])
 
 if __name__ == '__main__':
   main()
