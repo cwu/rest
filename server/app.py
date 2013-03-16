@@ -10,7 +10,6 @@ from assets.assets import assets_blueprint
 import cPickle as pickle
 
 POSITIONS = (
-  'empty',
   'log',
   'starfish',
   'fetal',
@@ -84,6 +83,9 @@ def fsr():
     for x, value in enumerate(row)
   ]
   position = POSITIONS[net.activate([v for row in raw_datas[0] for v in row]).argmax()]
+  max_val = max((max(row) for row in raw_datas[0]))
+  if max_val < settings.EMPTY_THRESHOLD:
+    position = 'empty'
   return jsonify({ 'data' : data, 'position' : position})
 
 @app.route('/fake_accel/<accel_id>')
@@ -109,6 +111,9 @@ def fake_fsr():
     for x, value in enumerate(row)
   ]
   position = POSITIONS[net.activate([v for row in raw_data for v in row]).argmax()]
+  max_val = max((max(row) for row in raw_data))
+  if max_val < settings.EMPTY_THRESHOLD:
+    position = 'empty'
   return jsonify({ 'data' : data, 'position' : position})
 
 if __name__ == '__main__':

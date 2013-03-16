@@ -13,7 +13,6 @@ import subprocess
 TRAINING_DIR = os.path.dirname(os.path.realpath(__file__))
 
 POSITIONS = (
-  'empty',
   'log',
   'starfish',
   'fetal',
@@ -43,9 +42,9 @@ def main():
   hidden = 100
   net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=SoftmaxLayer)
 
-  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.2)
+  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.1)
 
-  for _ in xrange(200):
+  for _ in xrange(2000):
     trainer.train()
 
   wrong = 0
@@ -58,17 +57,17 @@ def main():
   print 'wrong: ', wrong, '/', len(data) * 4
 
   out_name = 'network-wrong-%02d-hidden-%d.pickle' % (wrong, hidden)
-  with open(out_name, 'w') as f:
-    pickle.dump(net, f)
-  print "saved to '%s'" % out_name
+  print "will save to '%s'" % out_name
 
   print "Do you want to use this? (y/n): ",
   answer = sys.stdin.readline().strip()
   while answer not in ('y', 'n'):
     print "Enter (y/n): ",
-    answer = sys.readline().strip()
+    answer = sys.stdin.readline().strip()
 
   if answer == 'y':
+    with open(out_name, 'w') as f:
+      pickle.dump(net, f)
     subprocess.call(['rm', 'network-good.pickle'])
     subprocess.call(['ln', '-s', out_name, 'network-good.pickle'])
     subprocess.call(['touch', os.path.join('..', 'server', 'app.py')])

@@ -11,3 +11,4 @@ NN_FILE = os.path.join(PROJECT_DIR, '..', 'training', 'network-good.pickle')
 
 ACCEL_UPDATE = 250
 FSR_UPDATE = 250
+EMPTY_THRESHOLD=300
