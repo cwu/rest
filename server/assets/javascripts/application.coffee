@@ -35,7 +35,7 @@ $ ->
           x     : fsr.y * width
           y     : fsr.x * height
           count : fsr.value
-        matrix[parseInt(count / 5, 10)].push(fsr.value)
+        matrix[matrix.length - parseInt(count / 5, 10) - 1].push(fsr.value)
         count++
 
       if response.position == 'fetalalt'
