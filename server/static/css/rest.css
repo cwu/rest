@@ -1,0 +1,8 @@
+
+.navbar a{
+    width: 200px;
+    height: 40px;
+    display:inline-block;
+    color:white;
+    line-height:40px;
+}
