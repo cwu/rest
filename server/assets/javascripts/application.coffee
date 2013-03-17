@@ -20,13 +20,6 @@ $ ->
         accelChart.accel[id].append(now, (data.data - 950) / 50)
   , ACCEL_UPDATE)
 
-
-  #heatmap = h337.create
-  #  element  : 'heatmap'
-  #  radius   : 50
-  #  opacity  : 90
-  #  visible : true
-
   setInterval(()->
     width = $('#heatmap').width()
     height = $('#heatmap').height()
@@ -44,7 +37,9 @@ $ ->
           count : fsr.value
         matrix[parseInt(count / 5, 10)].push(fsr.value)
         count++
-      #heatmap.store.setDataSet data
+
+      if response.position == 'fetalalt'
+        response.position = 'fetal'
       $('#position').text(response.position)
       heatmapify(_.zip.apply(null, matrix))
   , FSR_UPDATE)
