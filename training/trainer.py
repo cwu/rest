@@ -16,11 +16,10 @@ POSITIONS = (
   'log',
   'starfish',
   'fetal',
-  'fetalalt',
 )
 
-HIDDEN_NEURONS = 100
-ITERATIONS = 5000
+HIDDEN_NEURONS = 120
+ITERATIONS = 500
 
 def data_set():
   data_files = glob.glob(os.path.join(TRAINING_DIR, 'data', '*'))
@@ -29,7 +28,7 @@ def data_set():
     name, position = filename.split('.')[0].split('-')
     with open(filename, 'r') as csv_file:
       reader = csv.reader(csv_file)
-      data[os.path.basename(name)][position] = [int(v) for row in reader  for v in row]
+      data[os.path.basename(name)][position] = [float(v)/1024 for row in reader  for v in row]
   return data
 
 def main():
@@ -39,6 +38,8 @@ def main():
 
   for name, positions in data.iteritems():
     for position, state in positions.iteritems():
+      if position == 'fetalalt':
+        position = 'fetal'
       ds.addSample(state, [POSITIONS.index(position)])
   testing_ds, training_ds = ds.splitWithProportion( 0.25 )
   testing_ds._convertToOneOfMany()
@@ -48,17 +49,19 @@ def main():
   hidden = HIDDEN_NEURONS
   net = buildNetwork(ds.indim, hidden, ds.outdim, hiddenclass=SoftmaxLayer)
 
-  trainer = BackpropTrainer(net, training_ds, verbose=True, learningrate=0.01, momentum=0.1)
+  trainer = BackpropTrainer(net, ds, verbose=True, learningrate=0.01, momentum=0.1)
 
-  trainer.trainEpochs(ITERATIONS)
+  trainer.trainUntilConvergence(maxEpochs=ITERATIONS, validationProportion=0.1)
 
   wrong = 0
   for name, positions in data.iteritems():
     for position, state in positions.iteritems():
+      if position == 'fetalalt':
+        position = 'fetal'
       guess = POSITIONS[net.activate(state).argmax()]
       if guess != position:
         wrong += 1
-        print "%10s %10s %10s" % (name, position, guess)
+        print "%10s actual: %10s guess: %10s" % (name, position, guess)
   print 'wrong: ', wrong, '/', len(data) * 4
 
   out_name = 'network-wrong-%02d-hidden-%d.pickle' % (wrong, hidden)

@@ -82,7 +82,7 @@ def fsr():
     for y, row in enumerate(raw_datas[0])
     for x, value in enumerate(row)
   ]
-  position = POSITIONS[net.activate([v for row in raw_datas[0] for v in row]).argmax()]
+  position = POSITIONS[net.activate([float(v)/1024 for row in raw_datas[0] for v in row]).argmax()]
   max_val = max((max(row) for row in raw_datas[0]))
   if max_val < settings.EMPTY_THRESHOLD:
     position = 'empty'
@@ -110,7 +110,7 @@ def fake_fsr():
     for y, row in enumerate(raw_data)
     for x, value in enumerate(row)
   ]
-  position = POSITIONS[net.activate([v for row in raw_data for v in row]).argmax()]
+  position = POSITIONS[net.activate([float(v)/1024 for row in raw_data for v in row]).argmax()]
   max_val = max((max(row) for row in raw_data))
   if max_val < settings.EMPTY_THRESHOLD:
     position = 'empty'
